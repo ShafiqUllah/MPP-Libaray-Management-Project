@@ -112,7 +112,7 @@ public class AddMemberPanel extends JFrame implements MessageableWindow {
 				if (tfMemberId.getText().isEmpty() || firstName.getText().isEmpty() || lastName.getText().isEmpty()
 						|| state.getText().isEmpty() || street.getText().isEmpty() || city.getText().isEmpty()
 						|| zip.getText().isEmpty() || telNum.getText().isEmpty()) {
-					displayError("Empty Fied !!!! Please enter each field to perform the action");
+					displayError("Empty Field !!!! Please enter each field to perform the action");
 					
 					throw new InvalidFieldException("Empty Field not accesptable");
 				} else {

@@ -31,7 +31,7 @@ public class TestData {
         System.out.println(da.readBooksMap());
         System.out.println(da.readUserMap());
         LibraryController l = LibraryController.getInstance();
-        l.addBookCopy("23-11451");
+        l.addBookCopy("23-11451", 1);
     }
 
     ///create books

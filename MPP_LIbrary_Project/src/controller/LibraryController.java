@@ -33,17 +33,19 @@ public class LibraryController {
 		da.saveNewMember(new LibraryMember(memberId, firstName, lastName, telephoneNo, ad));
 	}
 
-	public void addBookCopy(String ISBN) {
-		HashMap<String, business.Book> bookCopyHash = da.readBooksMap();
-		business.Book book = (business.Book) bookCopyHash.get(ISBN);
-		if (book != null) {
-			book.addCopy();
-		} else
-			return;
-		bookCopyHash.put(ISBN, book);
-		da.updateBooks(bookCopyHash);
+	public void addBookCopy(String ISBN, int copyNumber) {
+		for(int i =0; i< copyNumber; i++) {
+			HashMap<String, business.Book> bookCopyHash = da.readBooksMap();
+			business.Book book = (business.Book) bookCopyHash.get(ISBN);
+			if (book != null) {
+				book.addCopy();
+			} else
+				return;
+			bookCopyHash.put(ISBN, book);
+			da.updateBooks(bookCopyHash);
 
-		bookCopyHash = da.readBooksMap();
+			bookCopyHash = da.readBooksMap();
+		}
 	}
 
 	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> author, int numOfCopies) {
