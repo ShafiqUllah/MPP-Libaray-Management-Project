@@ -42,6 +42,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	AllMemberIDsPanel allMemberIDs;
 	CheckoutBookPanel checkoutBookPanel;
 	AddBookCopy addBookCopyPanel;
+	SearchCheckoutRecordPanel searchCheckoutRecordPanel;
 	// boolean startup = true;
 
 	// list items
@@ -51,6 +52,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	ListItem addMemberItem = new ListItem("Add Member", true);
 	ListItem checkoutBookItem = new ListItem("Checkout Book", true);
 	ListItem addBookCopyItem = new ListItem("Add Book Copy", true);
+	ListItem searchCheckoutRecordItem = new ListItem("Checkout Record", true);
 	
 	
 	ListItem allMemberIDsItem = new ListItem("All Member IDs", true);
@@ -123,6 +125,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		model.addElement(allBookItem);
 		model.addElement(allMemberIDsItem);
 		model.addElement(checkoutBookItem);
+		model.addElement(searchCheckoutRecordItem);
 
 		linkList = new JList<ListItem>(model);
 		linkList.setCellRenderer(new DefaultListCellRenderer() {
@@ -177,6 +180,9 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		
 		addBookCopyPanel = new AddBookCopy();
 		JPanel addBookCopy = addBookCopyPanel.getMainPanel();
+		
+		searchCheckoutRecordPanel = new SearchCheckoutRecordPanel();
+		JPanel searchCheckoutRecord = searchCheckoutRecordPanel.getMainPanel();
 
 		cards = new JPanel(new CardLayout());
 		cards.add(loginPanel, loginListItem.getItemName());
@@ -186,6 +192,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		cards.add(allMember, allMemberIDsItem.getItemName());
 		cards.add(checkout, checkoutBookItem.getItemName());
 		cards.add(addBookCopy, addBookCopyItem.getItemName());
+		cards.add(searchCheckoutRecord, searchCheckoutRecordItem.getItemName());
 
 
 	}

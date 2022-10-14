@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 public class SearchCheckoutRecordPanel extends JPanel implements MessageableWindow {
 	private JTextField memberID;
 
+	public JPanel getMainPanel() {
+		return this;
+	}
 	/**
 	 * Create the panel.
 	 */

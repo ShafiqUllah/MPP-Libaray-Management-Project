@@ -64,9 +64,16 @@ public class LibraryController {
 		mm = da.readMemberMap();
 
 		if (mm != null)
-			return mm.get(memberId).getCheckoutRecord();
-		else
+			if(mm.containsKey(memberId)) {
+				return mm.get(memberId).getCheckoutRecord();
+			}else {
+				return null;
+			}
+			
+		else {
 			return null;
+		}
+			
 	}
 
 	public void overDueList(String isbn) {
