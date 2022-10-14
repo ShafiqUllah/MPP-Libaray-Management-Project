@@ -14,8 +14,11 @@ public class CheckoutRecord implements Serializable{
 		checkoutRecordEntries = new ArrayList<>();
 		
 	}
-
 	
+	public List<CheckoutRecordEntry> getCheckoutRecordEntries() {
+		return checkoutRecordEntries;
+	}
+
 
 	public void addCheckoutEntry(BookCopy bookCopy) {
 

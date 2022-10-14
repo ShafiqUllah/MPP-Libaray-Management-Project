@@ -5,9 +5,11 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import util.Util;
@@ -43,6 +45,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	CheckoutBookPanel checkoutBookPanel;
 	AddBookCopy addBookCopyPanel;
 	SearchCheckoutRecordPanel searchCheckoutRecordPanel;
+	OverDueListPanel overDueListPanel;
 	// boolean startup = true;
 
 	// list items
@@ -53,6 +56,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	ListItem checkoutBookItem = new ListItem("Checkout Book", true);
 	ListItem addBookCopyItem = new ListItem("Add Book Copy", true);
 	ListItem searchCheckoutRecordItem = new ListItem("Checkout Record", true);
+	ListItem overDueListItem = new ListItem("Over Due", true);
 	
 	
 	ListItem allMemberIDsItem = new ListItem("All Member IDs", true);
@@ -79,7 +83,17 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 
 	public BookClubPanel() {
 		Util.adjustLabelFont(statusBar, Util.DARK_BLUE, true);
-		setSize(1200, 750);
+		setSize(1200, 650);
+		
+//		FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 0, 0);
+//		statusBar.setLayout(fl);
+		
+//		JFrame frame = new JFrame ("Test");
+//		JScrollPane scroll = new JScrollPane (statusBar, 
+//		   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//
+//		frame.add(scroll);
+//		frame.setVisible (true);
 
 		createLinkLabels();
 		createMainPanels();
@@ -112,6 +126,10 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		innerPane.setDividerLocation(180);
 		JSplitPane outerPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, innerPane, statusBar);
 		outerPane.setDividerLocation(550);
+		
+		
+		//outerPane.add(scroll);
+		
 		add(outerPane, BorderLayout.CENTER);
 		loginPanel.setBookClub(this);
 
@@ -131,6 +149,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		model.addElement(allMemberIDsItem);
 		model.addElement(checkoutBookItem);
 		model.addElement(searchCheckoutRecordItem);
+		model.addElement(overDueListItem);
 
 		linkList = new JList<ListItem>(model);
 		linkList.setCellRenderer(new DefaultListCellRenderer() {
@@ -188,6 +207,9 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		
 		searchCheckoutRecordPanel = new SearchCheckoutRecordPanel();
 		JPanel searchCheckoutRecord = searchCheckoutRecordPanel.getMainPanel();
+		
+		overDueListPanel = new OverDueListPanel();
+		JPanel overDueList = overDueListPanel.getMainPanel();
 
 		cards = new JPanel(new CardLayout());
 		cards.add(login, loginListItem.getItemName());
@@ -198,13 +220,13 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		cards.add(checkout, checkoutBookItem.getItemName());
 		cards.add(addBookCopy, addBookCopyItem.getItemName());
 		cards.add(searchCheckoutRecord, searchCheckoutRecordItem.getItemName());
+		cards.add(overDueList, overDueListItem.getItemName());
 
 
 	}
 
 	@Override
 	public void updateData() {
-		// nothing to do
 		
 		loginPanel.updateData();
 		addNewBookPanel.updateData();
@@ -214,7 +236,8 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		checkoutBookPanel.updateData();
 		addBookCopyPanel.updateData();
 		searchCheckoutRecordPanel.updateData();
+		overDueListPanel.updateData();
 		
-		
+	
 	}
 }

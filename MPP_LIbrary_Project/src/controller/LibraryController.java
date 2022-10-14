@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import business.Author;
 import business.Book;
 import business.BookCopy;
 import business.CheckoutRecord;
+import business.CheckoutRecordEntry;
 import business.LibraryMember;
 import dataaccess.DataAccess;
 import dataaccess.DataAccessFacade;
@@ -64,19 +67,15 @@ public class LibraryController {
 		mm = da.readMemberMap();
 
 		if (mm != null)
-			if(mm.containsKey(memberId)) {
+			if (mm.containsKey(memberId)) {
 				return mm.get(memberId).getCheckoutRecord();
-			}else {
+			} else {
 				return null;
 			}
-			
+
 		else {
 			return null;
 		}
-			
-	}
-
-	public void overDueList(String isbn) {
 
 	}
 
@@ -160,6 +159,79 @@ public class LibraryController {
 		}
 
 		return retval;
+	}
+
+	@SuppressWarnings("static-access")
+	public String overDueList(String isbn) {
+
+		StringBuilder sb = new StringBuilder();
+		HashMap<String, business.Book> bookCopyHash = da.readBooksMap();
+		business.Book book = (business.Book) bookCopyHash.get(isbn);
+		if (book != null) {
+			String outPutBooks = "";
+			outPutBooks = outPutBooks.format("The books ISBN : %s. %n The books title : %s. %n ", book.getIsbn(),
+					book.getTitle());
+			sb.append(outPutBooks + "\n");
+			System.out.println(outPutBooks);
+			System.out.println("The Information on the book copies:");
+			sb.append("The Information on the book copies:" + "\n");
+			for (BookCopy item : book.getBookCopy()) {
+				System.out.println("Book Copy Number : " + item.getCopyNo());
+				sb.append("Book Copy Number : " + item.getCopyNo() + "\n");
+				if (!item.isAvailable()) {
+					LibraryMember member = getLibraryMember(item.getLendedBy());
+					System.out.println("Lended to : " + member.getMemberId() + "->" + member.getFirstName());
+					sb.append("Lended to : " + member.getMemberId() + "->" + member.getFirstName() +" "+ 
+					member.getLastName()+"\n");
+					CheckoutRecordEntry checkoutRecordEntry = getCheckoutEntry(book.getIsbn(), item.getCopyNo(),
+							member);
+					if (checkoutRecordEntry != null) {
+						LocalDate dueDate = checkoutRecordEntry.getDueDate();
+						long daysBetween = LocalDate.now().until(LocalDate.of(2022, 10, 8), ChronoUnit.DAYS);
+						if (daysBetween < 0) {
+							System.out.println("Book Was Due on :" + dueDate.toString()
+									+ " and have been reutrned before " + (-1 * daysBetween) + " days /n /n");
+							sb.append("Book Was Due on :" + dueDate.toString()
+							+ " and have been reutrned before " + (-1 * daysBetween) + " days" + "\n");
+						} else
+							System.out.println("Book is Due on :" + dueDate.toString() + " and should be reutrned on "
+									+ daysBetween + " days /n /n");
+						sb.append("Book is Due on :" + dueDate.toString() + " and should be reutrned on "
+								+ daysBetween + " days " + "\n");
+					}
+				} else {
+					System.out.println("No OverDue \n \n");
+					sb.append("No OverDue \n " + "\n");
+				}
+
+			}
+		} else {
+			System.out.println("No books available with isbn No: " + isbn);
+			sb.append("No books available with isbn No: " + isbn + "\n");
+			
+		}
+
+		return sb.toString();
+	}
+
+	private LibraryMember getLibraryMember(String LendedBy) {
+
+		HashMap<String, LibraryMember> memberHash = da.readMemberMap();
+		LibraryMember member = (LibraryMember) memberHash.get(LendedBy);
+		return member;
+	}
+
+	private CheckoutRecordEntry getCheckoutEntry(String ISBN, int CopyNum, LibraryMember member) {
+
+		List<CheckoutRecordEntry> cRE = member.getCheckoutRecord().getCheckoutRecordEntries();
+		for (CheckoutRecordEntry item : cRE) {
+			String itemISBN = item.getBookCopy().getBook().getIsbn();
+			if ((item.getBookCopy().getCopyNo() == CopyNum) && (ISBN.equals(itemISBN))) {
+				return item;
+			}
+		}
+		return null;
+
 	}
 
 }
