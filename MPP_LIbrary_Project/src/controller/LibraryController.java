@@ -176,39 +176,43 @@ public class LibraryController {
 			System.out.println("The Information on the book copies:");
 			sb.append("The Information on the book copies:" + "\n");
 			for (BookCopy item : book.getBookCopy()) {
-				System.out.println("Book Copy Number : " + item.getCopyNo());
-				sb.append("Book Copy Number : " + item.getCopyNo() + "\n");
+				
 				if (!item.isAvailable()) {
+					System.out.println("Book Copy Number : " + item.getCopyNo());
+					sb.append("Book Copy Number : " + item.getCopyNo() + "\n");
 					LibraryMember member = getLibraryMember(item.getLendedBy());
 					System.out.println("Lended to : " + member.getMemberId() + "->" + member.getFirstName());
-					sb.append("Lended to : " + member.getMemberId() + "->" + member.getFirstName() +" "+ 
-					member.getLastName()+"\n");
+					sb.append("Lended to : " + member.getMemberId() + "->" + member.getFirstName() + " "
+							+ member.getLastName() + "\n");
 					CheckoutRecordEntry checkoutRecordEntry = getCheckoutEntry(book.getIsbn(), item.getCopyNo(),
 							member);
 					if (checkoutRecordEntry != null) {
 						LocalDate dueDate = checkoutRecordEntry.getDueDate();
-						long daysBetween = LocalDate.now().until(LocalDate.of(2022, 10, 8), ChronoUnit.DAYS);
+						//long daysBetween = LocalDate.now().until(LocalDate.of(2022, 10, 8), ChronoUnit.DAYS);
+						long daysBetween = LocalDate.now().until(dueDate, ChronoUnit.DAYS);
 						if (daysBetween < 0) {
 							System.out.println("Book Was Due on :" + dueDate.toString()
-									+ " and have been reutrned before " + (-1 * daysBetween) + " days /n /n");
-							sb.append("Book Was Due on :" + dueDate.toString()
-							+ " and have been reutrned before " + (-1 * daysBetween) + " days" + "\n");
-						} else
+									+ " and have been returned before " + (-1 * daysBetween) + " days /n /n");
+							sb.append("Book Was Due on :" + dueDate.toString() + " and have been returned before "
+									+ (-1 * daysBetween) + " days" + "\n");
+						} else {
 							System.out.println("Book is Due on :" + dueDate.toString() + " and should be reutrned on "
 									+ daysBetween + " days /n /n");
-						sb.append("Book is Due on :" + dueDate.toString() + " and should be reutrned on "
-								+ daysBetween + " days " + "\n");
+							sb.append("Book is Due on :" + dueDate.toString() + " and should be reutrned on "
+									+ daysBetween + " days " + "\n");
+						}
+
 					}
 				} else {
 					System.out.println("No OverDue \n \n");
-					sb.append("No OverDue \n " + "\n");
+					//sb.append("No OverDue \n " + "\n");
 				}
 
 			}
 		} else {
 			System.out.println("No books available with isbn No: " + isbn);
 			sb.append("No books available with isbn No: " + isbn + "\n");
-			
+
 		}
 
 		return sb.toString();

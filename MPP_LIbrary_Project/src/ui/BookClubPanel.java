@@ -83,6 +83,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 
 	public BookClubPanel() {
 		Util.adjustLabelFont(statusBar, Util.DARK_BLUE, true);
+		
 		setSize(1200, 650);
 		
 //		FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 0, 0);
@@ -94,6 +95,8 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 //
 //		frame.add(scroll);
 //		frame.setVisible (true);
+		
+	
 
 		createLinkLabels();
 		createMainPanels();
