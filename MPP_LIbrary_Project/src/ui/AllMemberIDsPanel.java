@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.TextArea;
 import java.util.Collections;
@@ -47,21 +48,27 @@ public class AllMemberIDsPanel implements MessageableWindow {
 		FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 25, 25);
 		middlePanel.setLayout(fl);
 		textArea = new TextArea(8, 20);
-		updateData();
+		textArea.setEditable(false);
+		textArea.setBackground(Color.WHITE);
+		updateTextAreaData(LibraryController.getInstance().allMemberIds());
 		middlePanel.add(textArea);
 		
 	}
 	
 	public void updateData() {
 		//populate
-		List<String> titles =  LibraryController.getInstance().allMemberIds();
+		updateTextAreaData(LibraryController.getInstance().allMemberIds());
+		mainPanel.repaint();
+	}
+	
+	private void updateTextAreaData(List<String> list) {
+		List<String> titles = list;
 		Collections.sort(titles);
 		StringBuilder sb = new StringBuilder();
 		for(String s: titles) {
 			sb.append(s + "\n");
 		}
 		textArea.setText(sb.toString());
-		mainPanel.repaint();
 	}
 	
 }

@@ -70,6 +70,11 @@ public class AddBookCopy extends JPanel implements MessageableWindow {
 	@Override
 	public void updateData() {
 		// TODO Auto-generated method stub
+		
+		number_of_copy.setText("");
+		isbn_number.setText("");
+		
+		repaint();
 
 	}
 }

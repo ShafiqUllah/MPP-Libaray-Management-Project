@@ -78,6 +78,11 @@ public class CheckoutBookPanel extends JPanel implements MessageableWindow {
 	@Override
 	public void updateData() {
 		// TODO Auto-generated method stub
+		
+		memberId.setText("");
+		isbnNumber.setText("");
+		
+		repaint();
 
 	}
 

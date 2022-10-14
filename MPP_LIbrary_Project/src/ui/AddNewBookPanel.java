@@ -14,6 +14,7 @@ import exceptions.InvalidFieldException;
 import util.Util;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.TextArea;
 import java.awt.TextField;
@@ -99,7 +100,7 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 					displayError("Empty Fied !!!! Please enter each field to perform the action");
 					throw new InvalidFieldException("Empty Field not accesptable");
 				} else if (listOfAuthors.isEmpty()) {
-					
+
 					displayError("Empty Author  !!!! Please enter Author to perform the action");
 					throw new InvalidFieldException("Empty Author not accesptable");
 				} else {
@@ -200,7 +201,7 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 						authorPhoneNumber.getText(), address, authorBio.getText());
 
 				listOfAuthors.add(author);
-				updateData();
+				updateAuthorTextArea();
 			}
 		});
 		btnNewButton_1.setBounds(371, 244, 130, 23);
@@ -227,7 +228,7 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 
 		bookCopyNumber = new JTextField();
 		bookCopyNumber.setBounds(175, 83, 86, 20);
-		
+
 //		bookCopyNumber.addKeyListener(new KeyAdapter() {
 //	         public void keyPressed(KeyEvent ke) {
 //	            String value = bookCopyNumber.getText();
@@ -249,8 +250,7 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 //	            }
 //	         }
 //	      });
-		
-	
+
 		add(bookCopyNumber);
 		bookCopyNumber.setColumns(10);
 
@@ -269,7 +269,9 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 		FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 0, 0);
 		middlePanel.setLayout(fl);
 		textArea = new TextArea(8, 20);
-		updateData();
+		textArea.setEditable(false);
+		textArea.setBackground(Color.WHITE);
+		updateAuthorTextArea();
 		middlePanel.add(textArea);
 
 	}
@@ -277,7 +279,27 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 	@Override
 	public void updateData() {
 		// TODO Auto-generated method stub
+		listOfAuthors.clear();
+		updateAuthorTextArea();
 
+		isbnNUmber.setText("");
+		bookTitle.setText("");
+		bookMaxCheckoutDay.setText("");
+		authorFirstName.setText("");
+		authorLastName.setText("");
+		authorPhoneNumber.setText("");
+		authorBio.setText("");
+		authorStreet.setText("");
+		authorCity.setText("");
+		authorState.setText("");
+		authorZip.setText("");
+		bookCopyNumber.setText("");
+
+		repaint();
+
+	}
+
+	private void updateAuthorTextArea() {
 		List<String> titles = getAuthorNames();
 
 		Collections.sort(titles);
@@ -286,8 +308,6 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 			sb.append(s + "\n");
 		}
 		textArea.setText(sb.toString());
-		repaint();
-
 	}
 
 	private List<String> getAuthorNames() {

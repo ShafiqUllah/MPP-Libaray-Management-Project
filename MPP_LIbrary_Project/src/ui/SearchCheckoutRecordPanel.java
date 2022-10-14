@@ -64,7 +64,8 @@ public class SearchCheckoutRecordPanel extends JPanel implements MessageableWind
 	@Override
 	public void updateData() {
 		// TODO Auto-generated method stub
-
+		memberID.setText("");
+		repaint();
 	}
 
 }
