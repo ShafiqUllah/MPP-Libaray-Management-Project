@@ -120,8 +120,10 @@ public class AddMemberPanel extends JFrame implements MessageableWindow {
 					lc.createLibraryMember(tfMemberId.getText(), firstName.getText(), lastName.getText(),
 							state.getText(), street.getText(), city.getText(), zip.getText(), telNum.getText());
 					displayInfo("Add Member successful");
+					
+					
 				}
-
+				
 			}
 		});
 		btnSave.setForeground(Color.BLUE);
@@ -142,6 +144,16 @@ public class AddMemberPanel extends JFrame implements MessageableWindow {
 	@Override
 	public void updateData() {
 		// TODO Auto-generated method stub
-
+		
+		firstName.setText("");
+		lastName.setText("");
+		telNum.setText("");
+		street.setText("");
+		city.setText("");
+		state.setText("");
+		zip.setText("");
+		tfMemberId.setText("");
+		
+		repaint();
 	}
 }

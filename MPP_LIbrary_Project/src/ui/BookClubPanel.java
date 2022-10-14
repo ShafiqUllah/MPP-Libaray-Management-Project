@@ -35,11 +35,11 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	JPanel cards;
 	public static JTextArea statusBar = new JTextArea("Welcome to the Book Club!");
 
-	LoginPanel lp;
+	LoginPanel loginPanel;
 	AllBookIDsPanel allBookIdsPanel;
-	AddNewBookPanel addBookP;
+	AddNewBookPanel addNewBookPanel;
 	AddMemberPanel addMemberPanel;
-	AllMemberIDsPanel allMemberIDs;
+	AllMemberIDsPanel allMemberIDsPanel;
 	CheckoutBookPanel checkoutBookPanel;
 	AddBookCopy addBookCopyPanel;
 	SearchCheckoutRecordPanel searchCheckoutRecordPanel;
@@ -113,7 +113,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		JSplitPane outerPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, innerPane, statusBar);
 		outerPane.setDividerLocation(550);
 		add(outerPane, BorderLayout.CENTER);
-		lp.setBookClub(this);
+		loginPanel.setBookClub(this);
 
 	}
 
@@ -152,7 +152,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 					if (isSelected) {
 						setForeground(Color.BLACK);
 						setBackground(new Color(236, 243, 245));
-						// setBackground(Color.WHITE);	
+						updateData();
 					}
 				}
 				return c;
@@ -163,12 +163,12 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 
 	public void createMainPanels() {
 		// login
-		lp = new LoginPanel();
-		JPanel loginPanel = lp.getMainPanel();
+		loginPanel = new LoginPanel();
+		JPanel login = loginPanel.getMainPanel();
 
 		// add book
-		addBookP = new AddNewBookPanel();
-		JPanel addBookPanel = addBookP.getMainPanel();
+		addNewBookPanel = new AddNewBookPanel();
+		JPanel addBookPanel = addNewBookPanel.getMainPanel();
 
 		// all book IDs
 		allBookIdsPanel = new AllBookIDsPanel();
@@ -177,8 +177,8 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		addMemberPanel = new AddMemberPanel();
 		JPanel memberP = this.addMemberPanel.getMainPanel();
 
-		allMemberIDs = new AllMemberIDsPanel();
-		JPanel allMember = allMemberIDs.getMainPanel();
+		allMemberIDsPanel = new AllMemberIDsPanel();
+		JPanel allMember = allMemberIDsPanel.getMainPanel();
 		
 		checkoutBookPanel = new CheckoutBookPanel();
 		JPanel checkout = checkoutBookPanel.getMainPanel();
@@ -190,7 +190,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		JPanel searchCheckoutRecord = searchCheckoutRecordPanel.getMainPanel();
 
 		cards = new JPanel(new CardLayout());
-		cards.add(loginPanel, loginListItem.getItemName());
+		cards.add(login, loginListItem.getItemName());
 		cards.add(allBookIDsPanel, allBookItem.getItemName());
 		cards.add(addBookPanel, addBookItem.getItemName());
 		cards.add(memberP, addMemberItem.getItemName());
@@ -205,6 +205,16 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	@Override
 	public void updateData() {
 		// nothing to do
-
+		
+		loginPanel.updateData();
+		addNewBookPanel.updateData();
+		allBookIdsPanel.updateData();
+		addMemberPanel.updateData();
+		allMemberIDsPanel.updateData();
+		checkoutBookPanel.updateData();
+		addBookCopyPanel.updateData();
+		searchCheckoutRecordPanel.updateData();
+		
+		
 	}
 }

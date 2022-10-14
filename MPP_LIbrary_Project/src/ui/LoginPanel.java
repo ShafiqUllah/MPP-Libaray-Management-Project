@@ -276,7 +276,10 @@ public class LoginPanel implements MessageableWindow {
 	@Override
 	public void updateData() {
 		// nothing to do
+		username.setText("");
+		password.setText("");
 
+		mainPanel.repaint();
 	}
 
 	private static final long serialVersionUID = 3618976789175941432L;
