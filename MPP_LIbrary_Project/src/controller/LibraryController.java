@@ -176,10 +176,10 @@ public class LibraryController {
 			System.out.println("The Information on the book copies:");
 			sb.append("The Information on the book copies:" + "\n");
 			for (BookCopy item : book.getBookCopy()) {
-				
+				System.out.println("Book Copy Number : " + item.getCopyNo());
+				sb.append("Book Copy Number : " + item.getCopyNo() + "\n");
 				if (!item.isAvailable()) {
-					System.out.println("Book Copy Number : " + item.getCopyNo());
-					sb.append("Book Copy Number : " + item.getCopyNo() + "\n");
+					
 					LibraryMember member = getLibraryMember(item.getLendedBy());
 					System.out.println("Lended to : " + member.getMemberId() + "->" + member.getFirstName());
 					sb.append("Lended to : " + member.getMemberId() + "->" + member.getFirstName() + " "
@@ -205,7 +205,7 @@ public class LibraryController {
 					}
 				} else {
 					System.out.println("No OverDue \n \n");
-					//sb.append("No OverDue \n " + "\n");
+					sb.append("No OverDue \n " + "\n");
 				}
 
 			}
