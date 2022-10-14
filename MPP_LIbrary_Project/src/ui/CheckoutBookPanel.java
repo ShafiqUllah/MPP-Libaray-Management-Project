@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 
 import business.CheckoutRecord;
 import controller.LibraryController;
+import exceptions.InvalidFieldException;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -49,20 +50,24 @@ public class CheckoutBookPanel extends JPanel implements MessageableWindow {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				LibraryController lc =  LibraryController.getInstance();
-				CheckoutRecord cc = lc.checkout(isbnNumber.getText(), memberId.getText());
+				if(isbnNumber.getText().isEmpty() || memberId.getText().isEmpty()) {
+					displayError("Empty Field !!!! Please enter each field to perform the action");
+					throw new InvalidFieldException("Empty Field not accesptable");
+				}else {
+					LibraryController lc =  LibraryController.getInstance();
+					CheckoutRecord cc = lc.checkout(isbnNumber.getText(), memberId.getText());
 
-				if (cc != null) {
-					System.out.println(cc);
-					System.out.println("Checkout successful. Press enter to continue.");
+					if (cc != null) {
+						System.out.println(cc);
+						System.out.println("Checkout successful..");
 
-					displayInfo("Checkout Successful \n" + cc);
+						displayInfo("Checkout Successful \n" + cc);
 
-				} else {
-					System.out.println("Checkout failed. Press enter to continue.");
-					displayError("Checkout failed");
+					} else {
+						System.out.println("Checkout failed. Press enter to continue.");
+						displayError("Checkout failed");
+					}
 				}
-
 			}
 		});
 		btnNewButton.setBounds(167, 159, 116, 23);
