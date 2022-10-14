@@ -15,6 +15,10 @@ public class AddBookCopy extends JPanel implements MessageableWindow {
 	private JTextField isbn_number;
 	private JTextField number_of_copy;
 
+	public JPanel getMainPanel() {
+		return this;
+	}
+
 	/**
 	 * Create the panel.
 	 */
@@ -35,14 +39,17 @@ public class AddBookCopy extends JPanel implements MessageableWindow {
 			public void actionPerformed(ActionEvent e) {
 
 				if (isbn_number.getText().isEmpty() || number_of_copy.getText().isEmpty()) {
-					
+
 					displayError("Empty Field !!!! Please enter each field to perform the action");
 					throw new InvalidFieldException("Empty Field not accesptable");
-					
+
 				} else {
 					LibraryController lc = LibraryController.getInstance();
-					lc.addBookCopy(isbn_number.getText(), Integer.parseInt(number_of_copy.getText()));
-					displayInfo("Add Copy of Books successful");
+					boolean status = lc.addBookCopy(isbn_number.getText(), Integer.parseInt(number_of_copy.getText()));
+					if (status)
+						displayInfo("Add Copy of Books successful");
+					else
+						displayError("Failed !!!! Check the ISBN number again...");
 				}
 			}
 		});
