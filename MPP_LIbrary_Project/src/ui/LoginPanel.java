@@ -66,13 +66,24 @@ public class LoginPanel implements MessageableWindow {
 		mainPanel = new JPanel();
 		defineUpperHalf();
 		defineMiddleHalf();
-		// defineLowerHalf();
-		BorderLayout bl = new BorderLayout();
-		bl.setVgap(30);
-		mainPanel.setLayout(bl);
+		mainPanel.setLayout(null);
 
-		mainPanel.add(upperHalf, BorderLayout.NORTH);
-		mainPanel.add(middleHalf, BorderLayout.CENTER);
+		mainPanel.add(upperHalf);
+		mainPanel.add(middleHalf);
+
+		btnLogout = new JButton("logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Data.currentAuth = null;
+				displayInfo("Logout successful");
+				updateLeftPanel(Data.currentAuth);
+				bookClub.repaint();
+
+			}
+		});
+		btnLogout.setBounds(57, 49, 108, 23);
+		middleHalf.add(btnLogout);
 		// mainPanel.add(lowerHalf, BorderLayout.SOUTH);
 
 	}
@@ -80,28 +91,27 @@ public class LoginPanel implements MessageableWindow {
 	private void defineUpperHalf() {
 
 		upperHalf = new JPanel();
-		upperHalf.setLayout(new BorderLayout());
+		upperHalf.setBounds(0, 0, 450, 117);
 		defineTopPanel();
 		defineMiddlePanel();
 		defineLowerPanel();
-		upperHalf.add(topPanel, BorderLayout.NORTH);
-		upperHalf.add(middlePanel, BorderLayout.CENTER);
-		upperHalf.add(lowerPanel, BorderLayout.SOUTH);
+		upperHalf.setLayout(null);
+		upperHalf.add(topPanel);
+		upperHalf.add(middlePanel);
+		upperHalf.add(lowerPanel);
 
 	}
 
 	private void defineMiddleHalf() {
 		middleHalf = new JPanel();
-		middleHalf.setLayout(new BorderLayout());
-		JSeparator s = new JSeparator();
-		s.setOrientation(SwingConstants.HORIZONTAL);
-		// middleHalf.add(Box.createRigidArea(new Dimension(0,50)));
-		middleHalf.add(s, BorderLayout.SOUTH);
+		middleHalf.setBounds(0, 128, 450, 172);
+		middleHalf.setLayout(null);
 
 	}
 
 	private void defineTopPanel() {
 		topPanel = new JPanel();
+		topPanel.setBounds(0, 0, 450, 24);
 
 		JLabel loginLabel = new JLabel("Login");
 		Util.adjustLabelFont(loginLabel, Color.BLUE.darker(), true);
@@ -113,16 +123,20 @@ public class LoginPanel implements MessageableWindow {
 
 	private void defineMiddlePanel() {
 		middlePanel = new JPanel();
-		middlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		middlePanel.setBounds(0, 24, 450, 41);
 		defineLeftTextPanel();
 		defineRightTextPanel();
+		middlePanel.setLayout(null);
 		middlePanel.add(leftTextPanel);
 		middlePanel.add(rightTextPanel);
 	}
 
 	private void defineLowerPanel() {
 		lowerPanel = new JPanel();
+		lowerPanel.setBounds(0, 65, 450, 48);
+		lowerPanel.setLayout(null);
 		loginButton = new JButton("Login");
+		loginButton.setBounds(57, 11, 117, 23);
 		addLoginButtonListener(loginButton);
 		lowerPanel.add(loginButton);
 	}
@@ -130,39 +144,47 @@ public class LoginPanel implements MessageableWindow {
 	private void defineLeftTextPanel() {
 
 		JPanel topText = new JPanel();
+		topText.setBounds(0, 0, 166, 20);
 		JPanel bottomText = new JPanel();
-		topText.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+		bottomText.setBounds(0, 20, 96, 11);
 		bottomText.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
 
 		username = new JTextField(10);
+		username.setBounds(5, 0, 86, 20);
 		label = new JLabel("Username");
 		label.setFont(Util.makeSmallFont(label.getFont()));
+		topText.setLayout(null);
 		topText.add(username);
 		bottomText.add(label);
 
 		leftTextPanel = new JPanel();
-		leftTextPanel.setLayout(new BorderLayout());
-		leftTextPanel.add(topText, BorderLayout.NORTH);
-		leftTextPanel.add(bottomText, BorderLayout.CENTER);
+		leftTextPanel.setBounds(5, 5, 176, 31);
+		leftTextPanel.setLayout(null);
+		leftTextPanel.add(topText);
+		leftTextPanel.add(bottomText);
 	}
 
 	private void defineRightTextPanel() {
 
 		JPanel topText = new JPanel();
+		topText.setBounds(0, 0, 130, 20);
 		JPanel bottomText = new JPanel();
-		topText.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+		bottomText.setBounds(0, 20, 96, 11);
 		bottomText.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
 
 		password = new JPasswordField(10);
+		password.setBounds(5, 0, 86, 20);
 		label = new JLabel("Password");
 		label.setFont(Util.makeSmallFont(label.getFont()));
+		topText.setLayout(null);
 		topText.add(password);
 		bottomText.add(label);
 
 		rightTextPanel = new JPanel();
-		rightTextPanel.setLayout(new BorderLayout());
-		rightTextPanel.add(topText, BorderLayout.NORTH);
-		rightTextPanel.add(bottomText, BorderLayout.CENTER);
+		rightTextPanel.setBounds(191, 5, 152, 31);
+		rightTextPanel.setLayout(null);
+		rightTextPanel.add(topText);
+		rightTextPanel.add(bottomText);
 	}
 
 	private void addLoginButtonListener(JButton butn) {
@@ -176,7 +198,7 @@ public class LoginPanel implements MessageableWindow {
 				LoginController login = new LoginController(user, pwd);
 				if (login.checkUser()) {
 					Auth auth = LoginController.currentAuth;
-					System.out.println("Hello, you are succesfully logged in as " + auth);
+					System.out.println("Succesfully logged in as " + auth);
 
 					Data.currentAuth = auth;
 					displayInfo("Login successful");
@@ -197,11 +219,14 @@ public class LoginPanel implements MessageableWindow {
 			memberItems();
 		else if (auth == Auth.BOTH)
 			bothItems();
+		else if( auth == null) {
+			noItems();
+		}
 
 	}
 
 	private void sellerItems() {
-		ListItem[] adminItems = bookClub.getSellerItems();
+		ListItem[] adminItems = bookClub.getAdminItems();
 		updateList(adminItems);
 	}
 
@@ -212,6 +237,11 @@ public class LoginPanel implements MessageableWindow {
 
 	private void bothItems() {
 		updateList(null);
+	}
+	
+	private void noItems() {
+		ListItem[] librarianItems =  bookClub.getNoItems();
+		updateList(librarianItems);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -250,5 +280,6 @@ public class LoginPanel implements MessageableWindow {
 	}
 
 	private static final long serialVersionUID = 3618976789175941432L;
+	private JButton btnLogout;
 
 }

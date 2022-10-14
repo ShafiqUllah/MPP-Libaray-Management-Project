@@ -57,17 +57,22 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	
 	ListItem allMemberIDsItem = new ListItem("All Member IDs", true);
 
-	ListItem[] sellerItems = { loginListItem, addBookItem };
+	ListItem[] adminItems = { loginListItem, addBookItem };
 	ListItem[] memberItems = { loginListItem, allBookItem };
+	ListItem[] noItems = { loginListItem };
 
-	public ListItem[] getSellerItems() {
-		return sellerItems;
+	public ListItem[] getAdminItems() {
+		return adminItems;
 	}
 
 	public ListItem[] getMemberItems() {
 		return memberItems;
 	}
 
+	public ListItem[] getNoItems() {
+		return noItems;
+	}
+	
 	public JList<ListItem> getLinkList() {
 		return linkList;
 	}
