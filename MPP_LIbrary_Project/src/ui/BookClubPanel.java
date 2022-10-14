@@ -50,27 +50,26 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 
 	// list items
 	ListItem loginListItem = new ListItem("Login", true);
-	ListItem addBookItem = new ListItem("Add Book", true);
-	ListItem allBookItem = new ListItem("All Book IDs", true);
-	ListItem addMemberItem = new ListItem("Add Member", true);
-	ListItem checkoutBookItem = new ListItem("Checkout Book", true);
-	ListItem addBookCopyItem = new ListItem("Add Book Copy", true);
-	ListItem searchCheckoutRecordItem = new ListItem("Checkout Record", true);
-	ListItem overDueListItem = new ListItem("Over Due", true);
-	
-	
-	ListItem allMemberIDsItem = new ListItem("All Member IDs", true);
+	ListItem addBookItem = new ListItem("Add Book", false);
+	ListItem allBookItem = new ListItem("All Book IDs", false);
+	ListItem addMemberItem = new ListItem("Add Member", false);
+	ListItem checkoutBookItem = new ListItem("Checkout Book", false);
+	ListItem addBookCopyItem = new ListItem("Add Book Copy", false);
+	ListItem searchCheckoutRecordItem = new ListItem("Checkout Record", false);
+	ListItem overDueListItem = new ListItem("Overdue", false);
+	ListItem allMemberIDsItem = new ListItem("All Member IDs", false);
 
-	ListItem[] adminItems = { loginListItem, addBookItem };
-	ListItem[] memberItems = { loginListItem, allBookItem };
+	//This items will be hidden for this role
+	ListItem[] adminItems = { loginListItem, allBookItem , allMemberIDsItem, checkoutBookItem, overDueListItem}; 
+	ListItem[] librarianItems = { loginListItem, allBookItem ,addBookItem, addMemberItem, addBookCopyItem,allMemberIDsItem , overDueListItem};
 	ListItem[] noItems = { loginListItem };
 
 	public ListItem[] getAdminItems() {
 		return adminItems;
 	}
 
-	public ListItem[] getMemberItems() {
-		return memberItems;
+	public ListItem[] getLibrarianItems() {
+		return librarianItems;
 	}
 
 	public ListItem[] getNoItems() {

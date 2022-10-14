@@ -231,7 +231,7 @@ public class LoginPanel implements MessageableWindow {
 	}
 
 	private void memberItems() {
-		ListItem[] librarianItems = bookClub.getMemberItems();
+		ListItem[] librarianItems = bookClub.getLibrarianItems();
 		updateList(librarianItems);
 	}
 
