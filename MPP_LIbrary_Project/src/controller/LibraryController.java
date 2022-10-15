@@ -54,6 +54,7 @@ public class LibraryController {
 
 	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> author, int numOfCopies) {
 		business.Book newBook = new Book(isbn, title, maxCheckoutLength, author);
+		numOfCopies --;
 		for (int i = 0; i < numOfCopies; i++) {
 			newBook.addCopy();
 		}

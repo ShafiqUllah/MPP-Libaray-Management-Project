@@ -61,7 +61,7 @@ public class CheckoutBookPanel extends JPanel implements MessageableWindow {
 						System.out.println(cc);
 						System.out.println("Checkout successful..");
 
-						displayInfo("Checkout Successful \n" + cc);
+						displayInfo("Checkout Successful \n" );
 
 					} else {
 						System.out.println("Checkout failed. Press enter to continue.");
