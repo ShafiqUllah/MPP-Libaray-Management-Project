@@ -195,8 +195,8 @@ public class LoginPanel implements MessageableWindow {
 			if (user.length() == 0 || pwd.length() == 0) {
 				displayError("Id and Password fields must be nonempty");
 			} else {
-				LoginController login = new LoginController(user, pwd);
-				if (login.checkUser()) {
+				LoginController login =  LoginController.getInstance();
+				if (login.checkUser(user, pwd)) {
 					Auth auth = LoginController.currentAuth;
 					System.out.println("Succesfully logged in as " + auth);
 

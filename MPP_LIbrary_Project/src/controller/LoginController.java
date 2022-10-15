@@ -13,13 +13,18 @@ public class LoginController {
 	private String password;
 	public static Auth currentAuth = null;
 	
-	public LoginController(String id, String password) {
-		super();
-		this.id = id;
-		this.password = password;
+	private static LoginController instance = new LoginController();
+	public static LoginController getInstance() {
+		return instance;
 	}
 	
-	public boolean checkUser() {
+	private LoginController() {
+		
+	}
+	
+	public boolean checkUser(String id, String password) {
+		this.id = id;
+		this.password = password;
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, User> map = da.readUserMap();
 		if(!map.containsKey(id)) {
