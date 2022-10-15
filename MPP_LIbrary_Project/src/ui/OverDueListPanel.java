@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.LibraryController;
+import exceptions.InvalidFieldException;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -36,14 +37,22 @@ public class OverDueListPanel extends JPanel implements MessageableWindow {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				LibraryController lc = LibraryController.getInstance();
-				String result = lc.overDueList(isbnNumber.getText());
-				
-				if(result.isEmpty() || result.length() == 0 || result == null) {
-					displayError("No Data Found");
+				if (isbnNumber.getText().isEmpty()) {
+					displayError("Empty Field !!!! Please enter each field to perform the action");
+					
+					throw new InvalidFieldException("Empty Field not accesptable");
 				}else {
-					displayInfo(result);
+					LibraryController lc = LibraryController.getInstance();
+					String result = lc.overDueList(isbnNumber.getText());
+					
+					if(result.isEmpty() || result.length() == 0 || result == null) {
+						displayError("No Data Found");
+					}else {
+						displayInfo(result);
+					}
 				}
+				
+				
 
 			}
 		});

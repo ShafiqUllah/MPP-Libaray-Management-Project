@@ -49,7 +49,7 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 	// boolean startup = true;
 
 	// list items
-	ListItem loginListItem = new ListItem("Login", true);
+	ListItem loginListItem = new ListItem("Login Logout", true);
 	ListItem addBookItem = new ListItem("Add Book", false);
 	ListItem allBookItem = new ListItem("All Book IDs", false);
 	ListItem addMemberItem = new ListItem("Add Member", false);
@@ -84,18 +84,6 @@ public class BookClubPanel extends JFrame implements MessageableWindow {
 		Util.adjustLabelFont(statusBar, Util.DARK_BLUE, true);
 		
 		setSize(1200, 650);
-		
-//		FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 0, 0);
-//		statusBar.setLayout(fl);
-		
-//		JFrame frame = new JFrame ("Test");
-//		JScrollPane scroll = new JScrollPane (statusBar, 
-//		   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//
-//		frame.add(scroll);
-//		frame.setVisible (true);
-		
-	
 
 		createLinkLabels();
 		createMainPanels();

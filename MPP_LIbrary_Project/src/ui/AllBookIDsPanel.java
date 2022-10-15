@@ -39,7 +39,7 @@ public class AllBookIDsPanel implements MessageableWindow {
 	
 	public void defineTopPanel() {
 		topPanel = new JPanel();
-		JLabel titlesLabel = new JLabel("View Titles");
+		JLabel titlesLabel = new JLabel("All Book IDs ");
 		Util.adjustLabelFont(titlesLabel, Util.DARK_BLUE, true);
 		topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		topPanel.add(titlesLabel);

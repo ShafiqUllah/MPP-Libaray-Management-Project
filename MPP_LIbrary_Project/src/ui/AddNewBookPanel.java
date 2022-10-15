@@ -90,8 +90,8 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 		add(bookMaxCheckoutDay);
 		bookMaxCheckoutDay.setColumns(10);
 
-		JButton btnNewButton = new JButton("Save Book");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSaveButton = new JButton("Save Book");
+		btnSaveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (isbnNUmber.getText().isEmpty() || bookTitle.getText().isEmpty()
@@ -114,8 +114,8 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 
 			}
 		});
-		btnNewButton.setBounds(27, 369, 138, 45);
-		add(btnNewButton);
+		btnSaveButton.setBounds(27, 369, 138, 45);
+		add(btnSaveButton);
 
 		JLabel lblNewLabel_4 = new JLabel("First name");
 		lblNewLabel_4.setBounds(353, 11, 72, 14);
@@ -189,8 +189,8 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 		add(authorZip);
 		authorZip.setColumns(10);
 
-		JButton btnNewButton_1 = new JButton("Add Author");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnAddAuthorButton = new JButton("Add Author");
+		btnAddAuthorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				listOfAuthors.add(new Author("Shafiq", "ULLAH", "1212121",
 //						new Address("10000n south", "Fairfiled", "IOWA", "5227"), "this is bio"));
@@ -201,11 +201,20 @@ public class AddNewBookPanel extends JPanel implements MessageableWindow {
 						authorPhoneNumber.getText(), address, authorBio.getText());
 
 				listOfAuthors.add(author);
+				
+				authorFirstName.setText("");
+				authorLastName.setText("");
+				authorPhoneNumber.setText("");
+				authorBio.setText("");
+				authorStreet.setText("");
+				authorCity.setText("");
+				authorState.setText("");
+				authorZip.setText("");
 				updateAuthorTextArea();
 			}
 		});
-		btnNewButton_1.setBounds(371, 244, 130, 23);
-		add(btnNewButton_1);
+		btnAddAuthorButton.setBounds(371, 244, 130, 23);
+		add(btnAddAuthorButton);
 
 		initAuthorList();
 

@@ -61,7 +61,7 @@ public class AddMemberPanel extends JFrame implements MessageableWindow {
 		lastName.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Telephone number");
-		lblNewLabel_1.setBounds(10, 64, 99, 14);
+		lblNewLabel_1.setBounds(10, 64, 115, 14);
 		contentPane.add(lblNewLabel_1);
 
 		telNum = new JTextField();
