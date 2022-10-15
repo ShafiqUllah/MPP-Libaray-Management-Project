@@ -8,4 +8,6 @@ How to run the project
 5. run TestData.java
 6. run Main.java
 
+Note : please read app_info file for credentials
+
 Enjoy !!!
